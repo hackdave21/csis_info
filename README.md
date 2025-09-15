@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
 This README describes the package. If you publish this package to pub.dev,
 this README's contents appear on the landing page for your package.
@@ -37,3 +38,7 @@ const like = 'sample';
 TODO: Tell users more about the package: where to find more information, how to
 contribute to the package, how to file issues, what response they can expect
 from the package authors, and more.
+=======
+# csis_info
+Package Flutter contenant les informations officielles de CSIS
+>>>>>>> b09f6205b52bfc2a5f2e39419b51307c767341b6
