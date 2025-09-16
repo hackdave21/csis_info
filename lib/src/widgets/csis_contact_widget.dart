@@ -102,10 +102,12 @@ class CsisContactWidget extends StatelessWidget {
         iconData = Icons.info;
     }
 
+final primaryColor = Theme.of(context).primaryColor;
+
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor.withOpacity(0.1),
+        color: Color.lerp(primaryColor, Colors.transparent, 0.9),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Icon(

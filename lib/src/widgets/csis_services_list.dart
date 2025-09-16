@@ -34,8 +34,7 @@ class CsisServicesList extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            ...services.map((service) => 
-              _buildServiceItem(context, service)).toList(),
+            ...services.map((service) => _buildServiceItem(context, service)),
           ],
         ),
       ),
@@ -43,6 +42,8 @@ class CsisServicesList extends StatelessWidget {
   }
 
   Widget _buildServiceItem(BuildContext context, CsisService service) {
+    final primaryColor = Theme.of(context).primaryColor;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
@@ -72,7 +73,7 @@ class CsisServicesList extends StatelessWidget {
                   style: const TextStyle(fontSize: 12),
                 ),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
+                backgroundColor: Color.lerp(primaryColor, Colors.transparent, 0.9),
               )).toList(),
             ),
           ],
