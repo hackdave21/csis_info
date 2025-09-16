@@ -5,11 +5,13 @@ import '../constants/csis_constants.dart';
 class CsisServicesList extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final int maxServices;
+  final bool shrinkWrap; // Nouveau paramètre pour les tests
 
   const CsisServicesList({
     super.key,
     this.padding,
     this.maxServices = -1,
+    this.shrinkWrap = false, // Par défaut false pour garder le comportement normal
   });
 
   @override
@@ -22,25 +24,41 @@ class CsisServicesList extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: Padding(
         padding: padding ?? const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Nos Services',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
+        child: shrinkWrap 
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Nos Services',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  ...services.map((service) => _buildServiceItem(context, service)),
+                ],
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Nos Services',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ...services.map((service) => _buildServiceItem(context, service)),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            ...services.map((service) => _buildServiceItem(context, service)),
-          ],
-        ),
       ),
     );
   }
 
   Widget _buildServiceItem(BuildContext context, CsisService service) {
-    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
@@ -58,6 +76,8 @@ class CsisServicesList extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Colors.grey[600],
             ),
+            maxLines: shrinkWrap ? 2 : null, // Limiter les lignes en mode shrinkWrap
+            overflow: shrinkWrap ? TextOverflow.ellipsis : TextOverflow.visible,
           ),
         ],
       ),

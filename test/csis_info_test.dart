@@ -74,10 +74,30 @@ void main() {
     });
 
     testWidgets('CsisServicesList should display services title', (tester) async {
+      // Solution 1: Utiliser un SizedBox pour limiter la hauteur
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: CsisServicesList(),
+            body: SizedBox(
+              height: 400, // Hauteur limitée pour le test
+              child: CsisServicesList(),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Nos Services'), findsOneWidget);
+    });
+
+    // Alternative avec le paramètre shrinkWrap si vous modifiez le widget
+    testWidgets('CsisServicesList should display services title (shrinkWrap)', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: CsisServicesList(
+              shrinkWrap: true, // Mode test
+              maxServices: 2, // Limiter le nombre de services pour les tests
+            ),
           ),
         ),
       );
@@ -97,7 +117,10 @@ void main() {
                 children: const [
                   CsisInfoCard(),
                   CsisContactWidget(),
-                  CsisServicesList(),
+                  SizedBox(
+                    height: 300, // Hauteur limitée pour les tests
+                    child: CsisServicesList(),
+                  ),
                 ],
               ),
             ),
@@ -126,6 +149,28 @@ void main() {
       );
 
       expect(find.byType(CsisLogoWidget), findsOneWidget);
+    });
+
+    // Test spécifique pour les services avec défilement
+    testWidgets('CsisServicesList should be scrollable with all services', (tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: Scaffold(
+            body: SizedBox(
+              height: 200, // Petite hauteur pour forcer le défilement
+              child: CsisServicesList(),
+            ),
+          ),
+        ),
+      );
+
+      expect(find.text('Nos Services'), findsOneWidget);
+      
+      // Vérifier qu'on peut faire défiler
+      await tester.drag(find.byType(CsisServicesList), const Offset(0, -100));
+      await tester.pumpAndSettle();
+      
+      expect(find.text('Nos Services'), findsOneWidget);
     });
   });
 }
