@@ -40,10 +40,12 @@ class CsisContactWidget extends StatelessWidget {
   }
 
   Widget _buildContactItem(BuildContext context, CsisContact contact) {
+    final bool isActionable = enableActions && contact.type != 'address';
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: enableActions ? () => _handleContactTap(contact) : null,
+        onTap: isActionable ? () => _handleContactTap(contact) : null,
         borderRadius: BorderRadius.circular(8),
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -72,7 +74,7 @@ class CsisContactWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              if (enableActions)
+              if (isActionable)
                 Icon(
                   Icons.arrow_forward_ios,
                   size: 16,
@@ -85,9 +87,10 @@ class CsisContactWidget extends StatelessWidget {
     );
   }
 
- 
   Widget _buildContactIcon(BuildContext context, CsisContact contact) {
     IconData iconData;
+    Color iconColor = Theme.of(context).primaryColor;
+    
     switch (contact.type) {
       case 'phone':
         iconData = Icons.phone;
@@ -97,22 +100,25 @@ class CsisContactWidget extends StatelessWidget {
         break;
       case 'address':
         iconData = Icons.location_on;
+        iconColor = Colors.grey[600] ?? Colors.grey;
         break;
       default:
         iconData = Icons.info;
     }
 
-final primaryColor = Theme.of(context).primaryColor;
+    final primaryColor = Theme.of(context).primaryColor;
 
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Color.lerp(primaryColor, Colors.transparent, 0.9),
+        color: contact.type == 'address' 
+            ? Colors.grey[100] 
+            : Color.lerp(primaryColor, Colors.transparent, 0.9),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Icon(
         iconData,
-        color: Theme.of(context).primaryColor,
+        color: iconColor,
         size: 20,
       ),
     );
@@ -129,12 +135,17 @@ final primaryColor = Theme.of(context).primaryColor;
         uri = Uri.parse('mailto:${contact.value}');
         break;
       case 'address':
-        uri = Uri.parse('https://maps.google.com/?q=${contact.value}');
-        break;
+        return;
     }
 
-    if (uri != null && await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+    if (uri != null) {
+      try {
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri);
+        }
+      } catch (e) {
+        debugPrint('Impossible d\'ouvrir le lien: $e');
+      }
     }
   }
 }

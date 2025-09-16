@@ -74,12 +74,11 @@ void main() {
     });
 
     testWidgets('CsisServicesList should display services title', (tester) async {
-      // Solution 1: Utiliser un SizedBox pour limiter la hauteur
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
             body: SizedBox(
-              height: 400, // Hauteur limitée pour le test
+              height: 400,
               child: CsisServicesList(),
             ),
           ),
@@ -89,14 +88,13 @@ void main() {
       expect(find.text('Nos Services'), findsOneWidget);
     });
 
-    // Alternative avec le paramètre shrinkWrap si vous modifiez le widget
     testWidgets('CsisServicesList should display services title (shrinkWrap)', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
             body: CsisServicesList(
-              shrinkWrap: true, // Mode test
-              maxServices: 2, // Limiter le nombre de services pour les tests
+              shrinkWrap: true, 
+              maxServices: 2, 
             ),
           ),
         ),
@@ -118,7 +116,7 @@ void main() {
                   CsisInfoCard(),
                   CsisContactWidget(),
                   SizedBox(
-                    height: 300, // Hauteur limitée pour les tests
+                    height: 300,
                     child: CsisServicesList(),
                   ),
                 ],
@@ -157,7 +155,7 @@ void main() {
         const MaterialApp(
           home: Scaffold(
             body: SizedBox(
-              height: 200, // Petite hauteur pour forcer le défilement
+              height: 200, 
               child: CsisServicesList(),
             ),
           ),

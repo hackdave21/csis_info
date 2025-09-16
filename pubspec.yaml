@@ -3,6 +3,8 @@ description: Package Flutter contenant les informations officielles de l'entrepr
 version: 1.0.0
 homepage: https://github.com/hackdave21/csis_info
 repository: https://github.com/hackdave21/csis_info
+issue_tracker: https://github.com/hackdave21/csis_info/issues
+documentation: https://github.com/hackdave21/csis_info#readme
 
 environment:
   sdk: ^3.8.1

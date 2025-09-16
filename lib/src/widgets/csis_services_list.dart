@@ -5,13 +5,13 @@ import '../constants/csis_constants.dart';
 class CsisServicesList extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final int maxServices;
-  final bool shrinkWrap; // Nouveau paramètre pour les tests
+  final bool shrinkWrap;
 
   const CsisServicesList({
     super.key,
     this.padding,
     this.maxServices = -1,
-    this.shrinkWrap = false, // Par défaut false pour garder le comportement normal
+    this.shrinkWrap = false,
   });
 
   @override
@@ -76,7 +76,7 @@ class CsisServicesList extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Colors.grey[600],
             ),
-            maxLines: shrinkWrap ? 2 : null, // Limiter les lignes en mode shrinkWrap
+            maxLines: shrinkWrap ? 2 : null, 
             overflow: shrinkWrap ? TextOverflow.ellipsis : TextOverflow.visible,
           ),
         ],
