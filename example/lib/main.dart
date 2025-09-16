@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'CSIS Info Package Demo',
+      debugShowCheckedModeBanner: false,
      theme: ThemeData(
         primaryColor: const Color(0xFF1C75B8),
         colorScheme: ColorScheme.fromSeed(

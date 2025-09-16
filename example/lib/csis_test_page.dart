@@ -16,7 +16,7 @@ class CsisTestPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Test du logo
+            // test du logo
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -33,7 +33,7 @@ class CsisTestPage extends StatelessWidget {
             
             const SizedBox(height: 16),
             
-            // Test des informations de base
+            // test des informations 
             const CsisInfoCard(
               showLogo: true,
               showDescription: true,
@@ -42,7 +42,7 @@ class CsisTestPage extends StatelessWidget {
             
             const SizedBox(height: 16),
             
-            // Test des contacts
+            // test des contacts
             const CsisContactWidget(
               showIcons: true,
               enableActions: true,
@@ -50,14 +50,14 @@ class CsisTestPage extends StatelessWidget {
             
             const SizedBox(height: 16),
             
-            // Test des services
+            // test des services
             const CsisServicesList(
-              maxServices: 2, // Limiter pour le test
+              maxServices: 2, // limiter pour le test
             ),
             
             const SizedBox(height: 16),
             
-            // Test des constantes
+            // test des constantes
             Card(
               child: Padding(
                 padding: const EdgeInsets.all(16),
