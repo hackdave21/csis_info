@@ -29,11 +29,7 @@ class CsisLogoWidget extends StatelessWidget {
             color: Colors.grey[300],
             borderRadius: BorderRadius.circular(8),
           ),
-          child: const Icon(
-            Icons.business,
-            size: 40,
-            color: Colors.grey,
-          ),
+          child: const Icon(Icons.business, size: 40, color: Colors.grey),
         );
       },
     );

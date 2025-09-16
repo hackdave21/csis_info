@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:csis_info/csis_info.dart';
 
 void main() {
-
   // test des models
   group('CSIS Models Tests', () {
     test('CsisContact should be created correctly', () {
@@ -35,14 +34,12 @@ void main() {
     });
   });
 
-// test des widgets
+  // test des widgets
   group('CSIS Widgets Tests', () {
     testWidgets('CsisLogoWidget should display correctly', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
-          home: Scaffold(
-            body: CsisLogoWidget(width: 100, height: 100),
-          ),
+          home: Scaffold(body: CsisLogoWidget(width: 100, height: 100)),
         ),
       );
 
@@ -51,36 +48,29 @@ void main() {
 
     testWidgets('CsisInfoCard should display company name', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: CsisInfoCard(),
-          ),
-        ),
+        const MaterialApp(home: Scaffold(body: CsisInfoCard())),
       );
 
       expect(find.text(CsisConstants.companyFullName), findsOneWidget);
     });
 
-    testWidgets('CsisContactWidget should display contact title', (tester) async {
+    testWidgets('CsisContactWidget should display contact title', (
+      tester,
+    ) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: CsisContactWidget(),
-          ),
-        ),
+        const MaterialApp(home: Scaffold(body: CsisContactWidget())),
       );
 
       expect(find.text('Contactez-nous'), findsOneWidget);
     });
 
-    testWidgets('CsisServicesList should display services title', (tester) async {
+    testWidgets('CsisServicesList should display services title', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: SizedBox(
-              height: 400,
-              child: CsisServicesList(),
-            ),
+            body: SizedBox(height: 400, child: CsisServicesList()),
           ),
         ),
       );
@@ -88,14 +78,13 @@ void main() {
       expect(find.text('Nos Services'), findsOneWidget);
     });
 
-    testWidgets('CsisServicesList should display services title (shrinkWrap)', (tester) async {
+    testWidgets('CsisServicesList should display services title (shrinkWrap)', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: CsisServicesList(
-              shrinkWrap: true, 
-              maxServices: 2, 
-            ),
+            body: CsisServicesList(shrinkWrap: true, maxServices: 2),
           ),
         ),
       );
@@ -104,7 +93,7 @@ void main() {
     });
   });
 
-// test d'intégration
+  // test d'intégration
   group('CSIS Integration Tests', () {
     testWidgets('All widgets should work together', (tester) async {
       await tester.pumpWidget(
@@ -115,10 +104,7 @@ void main() {
                 children: const [
                   CsisInfoCard(),
                   CsisContactWidget(),
-                  SizedBox(
-                    height: 300,
-                    child: CsisServicesList(),
-                  ),
+                  SizedBox(height: 300, child: CsisServicesList()),
                 ],
               ),
             ),
@@ -139,35 +125,30 @@ void main() {
 
     testWidgets('Logo widget should handle errors gracefully', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: CsisLogoWidget(),
-          ),
-        ),
+        const MaterialApp(home: Scaffold(body: CsisLogoWidget())),
       );
 
       expect(find.byType(CsisLogoWidget), findsOneWidget);
     });
 
     // Test spécifique pour les services avec défilement
-    testWidgets('CsisServicesList should be scrollable with all services', (tester) async {
+    testWidgets('CsisServicesList should be scrollable with all services', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
-            body: SizedBox(
-              height: 200, 
-              child: CsisServicesList(),
-            ),
+            body: SizedBox(height: 200, child: CsisServicesList()),
           ),
         ),
       );
 
       expect(find.text('Nos Services'), findsOneWidget);
-      
+
       // Vérifier qu'on peut faire défiler
       await tester.drag(find.byType(CsisServicesList), const Offset(0, -100));
       await tester.pumpAndSettle();
-      
+
       expect(find.text('Nos Services'), findsOneWidget);
     });
   });

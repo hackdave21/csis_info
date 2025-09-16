@@ -26,17 +26,14 @@ class CsisInfoCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             if (showLogo) ...[
-              CsisLogoWidget(
-                width: logoSize,
-                height: logoSize,
-              ),
+              CsisLogoWidget(width: logoSize, height: logoSize),
               const SizedBox(height: 16),
             ],
             Text(
               CsisConstants.companyFullName,
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             if (showDescription) ...[

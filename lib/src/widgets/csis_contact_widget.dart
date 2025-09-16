@@ -26,13 +26,14 @@ class CsisContactWidget extends StatelessWidget {
           children: [
             Text(
               'Contactez-nous',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            ...CsisConstants.contacts
-                .map((contact) => _buildContactItem(context, contact)),
+            ...CsisConstants.contacts.map(
+              (contact) => _buildContactItem(context, contact),
+            ),
           ],
         ),
       ),
@@ -41,7 +42,7 @@ class CsisContactWidget extends StatelessWidget {
 
   Widget _buildContactItem(BuildContext context, CsisContact contact) {
     final bool isActionable = enableActions && contact.type != 'address';
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
@@ -62,14 +63,14 @@ class CsisContactWidget extends StatelessWidget {
                     Text(
                       contact.displayName,
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                            color: Colors.grey[600],
-                          ),
+                        color: Colors.grey[600],
+                      ),
                     ),
                     Text(
                       contact.value,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
@@ -90,7 +91,7 @@ class CsisContactWidget extends StatelessWidget {
   Widget _buildContactIcon(BuildContext context, CsisContact contact) {
     IconData iconData;
     Color iconColor = Theme.of(context).primaryColor;
-    
+
     switch (contact.type) {
       case 'phone':
         iconData = Icons.phone;
@@ -111,16 +112,12 @@ class CsisContactWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: contact.type == 'address' 
-            ? Colors.grey[100] 
+        color: contact.type == 'address'
+            ? Colors.grey[100]
             : Color.lerp(primaryColor, Colors.transparent, 0.9),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: Icon(
-        iconData,
-        color: iconColor,
-        size: 20,
-      ),
+      child: Icon(iconData, color: iconColor, size: 20),
     );
   }
 

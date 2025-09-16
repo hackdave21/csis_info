@@ -16,7 +16,7 @@ class CsisServicesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final services = maxServices > 0 
+    final services = maxServices > 0
         ? CsisConstants.services.take(maxServices).toList()
         : CsisConstants.services;
 
@@ -24,7 +24,7 @@ class CsisServicesList extends StatelessWidget {
       margin: EdgeInsets.zero,
       child: Padding(
         padding: padding ?? const EdgeInsets.all(16),
-        child: shrinkWrap 
+        child: shrinkWrap
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -36,7 +36,9 @@ class CsisServicesList extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  ...services.map((service) => _buildServiceItem(context, service)),
+                  ...services.map(
+                    (service) => _buildServiceItem(context, service),
+                  ),
                 ],
               )
             : SingleChildScrollView(
@@ -50,7 +52,9 @@ class CsisServicesList extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    ...services.map((service) => _buildServiceItem(context, service)),
+                    ...services.map(
+                      (service) => _buildServiceItem(context, service),
+                    ),
                   ],
                 ),
               ),
@@ -66,17 +70,17 @@ class CsisServicesList extends StatelessWidget {
         children: [
           Text(
             service.name,
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
           const SizedBox(height: 4),
           Text(
             service.description,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.grey[600],
-            ),
-            maxLines: shrinkWrap ? 2 : null, 
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+            maxLines: shrinkWrap ? 2 : null,
             overflow: shrinkWrap ? TextOverflow.ellipsis : TextOverflow.visible,
           ),
         ],
