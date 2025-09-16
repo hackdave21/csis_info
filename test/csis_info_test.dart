@@ -22,12 +22,10 @@ void main() {
       const service = CsisService(
         name: 'Test Service',
         description: 'Test Description',
-        features: ['Feature 1', 'Feature 2'],
       );
 
       expect(service.name, 'Test Service');
       expect(service.description, 'Test Description');
-      expect(service.features.length, 2);
     });
 
     test('CsisConstants should have correct company info', () {

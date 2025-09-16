@@ -49,15 +49,7 @@ class CsisConstants {
     CsisService(
       name: 'Transformation Digitale',
       description: "Cela commence par notre architecture Zero Trust et la transformation du déploiement des applications par la modernisation et l'optimisation.La transformation numérique fait référence à l'intégration de la technologie numérique dans tous les aspects d'une entreprise, entraînant des changements fondamentaux dans la façon dont les organisations fonctionnent et offrent de la valeur aux clients. Pour le SCRS, il ne s'agit pas seulement d'adopter de nouvelles technologies, mais cela implique également un changement culturel, une restructuration des opérations et un changement dans la façon dont les entreprises pensent et fonctionnent",
-      features: [
-        'Intégration technologique',
-        'Expérience client',
-        'Prise de décision basée sur les données',
-        'Agilité opérationnelle',
-        'Changement culturel',
-        'Innovation de modèles commerciaux',
-        'Leadership et vision'
-      ]
+     
     ),
     CsisService(
       name: 'Développement de logiciels',
@@ -66,12 +58,7 @@ class CsisConstants {
      CsisService(
       name: 'La cyber-sécurité',
       description: "L'engagement du SCRS est de vous protéger, vous et votre organisation, contre les cyberattaques. Nous effectuons la conformité informatique, des audits et effectuons des tests d'intrusion pour garantir votre sécurité",
-      features: [
-        "L'évaluation des risques",
-        "Évaluation de la vulnérabilité",
-        "Évaluation et autorisation de sécurité (SA&A)",
-        "Tests d'intrusion des réseaux et des applications Web"
-      ]
+   
     ),
   ];
 

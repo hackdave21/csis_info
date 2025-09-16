@@ -3,13 +3,11 @@ import '../models/csis_service.dart';
 import '../constants/csis_constants.dart';
 
 class CsisServicesList extends StatelessWidget {
-  final bool showFeatures;
   final EdgeInsetsGeometry? padding;
   final int maxServices;
 
   const CsisServicesList({
     super.key,
-    this.showFeatures = true,
     this.padding,
     this.maxServices = -1,
   });
@@ -42,7 +40,6 @@ class CsisServicesList extends StatelessWidget {
   }
 
   Widget _buildServiceItem(BuildContext context, CsisService service) {
-    final primaryColor = Theme.of(context).primaryColor;
     
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -62,21 +59,6 @@ class CsisServicesList extends StatelessWidget {
               color: Colors.grey[600],
             ),
           ),
-          if (showFeatures && service.features.isNotEmpty) ...[
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: service.features.map((feature) => Chip(
-                label: Text(
-                  feature,
-                  style: const TextStyle(fontSize: 12),
-                ),
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                backgroundColor: Color.lerp(primaryColor, Colors.transparent, 0.9),
-              )).toList(),
-            ),
-          ],
         ],
       ),
     );
