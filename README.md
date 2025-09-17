@@ -2,7 +2,7 @@
 
 Un package Flutter contenant toutes les informations officielles de l'entreprise CSIS (logo, services, coordonnées de contact) pour une intégration facile dans vos applications Flutter.
 
-## Aperçu
+## 📱 Aperçu
 
 Ce package fournit des widgets prêts à l'emploi pour afficher les informations de l'entreprise CSIS, incluant :
 - Logo de l'entreprise
@@ -10,7 +10,7 @@ Ce package fournit des widgets prêts à l'emploi pour afficher les informations
 - Liste des services offerts
 - Interface utilisateur cohérente et moderne
 
-##  Installation
+## 🚀 Installation
 
 Ajoutez cette ligne à votre fichier `pubspec.yaml` :
 
@@ -69,11 +69,11 @@ CsisContactWidget(
 ```dart
 CsisServicesList(
   showFeatures: true,
-  maxServices: 4, 
+  maxServices: 4, // Limite le nombre de services affichés
 )
 ```
 
-### Exemple complet
+### Utilisation simple (Recommandée)
 
 ```dart
 import 'package:flutter/material.dart';
@@ -85,30 +85,46 @@ class AboutPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('À propos de CSIS')),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            CsisInfoCard(
-              showLogo: true,
-              showDescription: true,
-            ),
-            SizedBox(height: 20),
-            CsisContactWidget(
-              enableActions: true,
-            ),
-            SizedBox(height: 20),
-            CsisServicesList(
-              showFeatures: true,
-            ),
-          ],
-        ),
+        child: CsisInfo(), 
       ),
     );
   }
 }
 ```
 
-## Personnalisation
+### Utilisation avec personnalisation
+
+```dart
+CsisInfo(
+  showLogo: true,
+  showDescription: true,
+  showContacts: true,
+  showServices: true,
+  enableContactActions: true,
+  logoSize: 100,
+  style: CsisInfoStyle.elevated,
+  maxServices: 3,
+  showServiceFeatures: false,
+)
+```
+
+### Styles disponibles
+
+```dart
+// Style avec carte (par défaut)
+CsisInfo(style: CsisInfoStyle.card)
+
+// Style avec carte élevée
+CsisInfo(style: CsisInfoStyle.elevated)
+
+// Style plat sans bordure
+CsisInfo(style: CsisInfoStyle.flat)
+
+// Style minimal avec bordure fine
+CsisInfo(style: CsisInfoStyle.minimal)
+```
+
+## 🎨 Personnalisation
 
 ### Accéder aux données directement
 
@@ -143,7 +159,7 @@ class CustomCsisWidget extends StatelessWidget {
 }
 ```
 
-##  Fonctionnalités
+## 📱 Fonctionnalités
 
 - ✅ **Widgets prêts à l'emploi** - Interface cohérente et moderne
 - ✅ **Actions automatiques** - Ouvre automatiquement téléphone, email, maps
@@ -153,37 +169,18 @@ class CustomCsisWidget extends StatelessWidget {
 - ✅ **Tests inclus** - Package entièrement testé
 - ✅ **Documentation complète** - Exemples et guides d'utilisation
 
-## Informations CSIS
+## 🏢 Informations CSIS
 
 ### Services proposés :
-- Informatique d'entreprise
-- Opérations d'infrastructure  
-- Cloud computing
-- Transformation Digitale
-- Développement de logiciels
-- La cyber-sécurité
+- Développement Web
+- Développement Mobile  
+- Consulting IT
+- Maintenance & Support
 
 ### Contact :
-- **Téléphone** : +1(240) 425-6583
-- **Email** : contact@csistg.com
-- **Adresse** : Washington, DC
-
-## Développement
-
-### Structure du projet
-
-csis_info/
-├── lib/
-│   ├── csis_info.dart              # Export principal
-│   └── src/
-│       ├── constants/
-│       │   └── csis_constants.dart # Données de l'entreprise
-│       ├── models/                 # Modèles de données
-│       └── widgets/                # Widgets d'affichage
-├── assets/                         # Images et icônes
-├── example/                        # Application d'exemple
-└── test/                          # Tests unitaires
-
+- **Téléphone** : +228 XX XX XX XX
+- **Email** : contact@csis.tg
+- **Adresse** : Lomé, Togo
 
 ### Lancer les tests
 
@@ -198,11 +195,11 @@ cd example
 flutter run
 ```
 
-## Licence
+## 📄 Licence
 
 Ce package est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
-## Contribution
+## 🤝 Contribution
 
 Les contributions sont les bienvenues ! Pour contribuer :
 
@@ -212,7 +209,7 @@ Les contributions sont les bienvenues ! Pour contribuer :
 4. Push vers la branche (`git push origin feature/AmazingFeature`)
 5. Ouvrez une Pull Request
 
-## Support
+## 📞 Support
 
 Pour toute question ou problème :
 - Créez une [issue](https://github.com/hackdave21/csis_info/issues)
@@ -220,4 +217,4 @@ Pour toute question ou problème :
 
 ---
 
-**Développé par l'équipe CSIS**
+**Développé avec ❤️ par l'équipe CSIS**
