@@ -1,4 +1,5 @@
 
+import 'package:example/app_theme.dart';
 import 'package:example/csis_test_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,16 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CSIS Info Package Demo',
       debugShowCheckedModeBanner: false,
-     theme: ThemeData(
-        primaryColor: const Color(0xFF1C75B8),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1C75B8), 
-          primary: const Color(0xFF1C75B8),  
-          secondary: const Color(0xFFF53C3A), 
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.lightTheme, 
+      darkTheme: AppTheme.darkTheme,
       home: const CsisTestPage(),
     );
   }
