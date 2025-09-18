@@ -1,6 +1,7 @@
 
 import 'package:example/app_theme.dart';
-import 'package:example/csis_test_page.dart';
+// import 'package:example/csis_test_page.dart';
+import 'package:example/retro_games_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme, 
       darkTheme: AppTheme.darkTheme,
-      home: const CsisTestPage(),
+      home: const RetroGamesPage(),
     );
   }
 }
