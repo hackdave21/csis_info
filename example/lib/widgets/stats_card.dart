@@ -32,19 +32,19 @@ class StatsCard extends StatelessWidget {
           _StatItem(
            icon: CupertinoIcons.star_fill,
             label: 'Meilleur Score',
-            value: '12,450',
+            value: '0',
             isDarkMode: isDarkMode,
           ),
           _StatItem(
             icon: CupertinoIcons.bolt_fill,
             label: 'Parties Jouées',
-            value: '47',
+            value: '0',
             isDarkMode: isDarkMode,
           ),
           _StatItem(
             icon: CupertinoIcons.gauge,
             label: 'Précision',
-            value: '85%',
+            value: '0%',
             isDarkMode: isDarkMode,
           ),
         ],
@@ -78,7 +78,7 @@ class _StatItem extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           value,
-          style: GoogleFonts.orbitron(
+          style: GoogleFonts.roboto(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: isDarkMode ? CupertinoColors.white : CupertinoColors.black,

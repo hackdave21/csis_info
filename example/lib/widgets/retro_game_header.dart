@@ -40,7 +40,7 @@ class RetroGameHeader extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: CupertinoColors.white,
+                  color: CupertinoColors.systemBlue,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: const Icon(
@@ -62,6 +62,7 @@ class RetroGameHeader extends StatelessWidget {
                         color: CupertinoColors.white,
                       ),
                     ),
+                      const SizedBox(height: 10),
                     Text(
                       'Redécouvrez les classiques',
                       style: GoogleFonts.roboto(
@@ -78,7 +79,7 @@ class RetroGameHeader extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
             decoration: BoxDecoration(
-              color: CupertinoColors.white,
+              color: CupertinoColors.systemBlue,
               borderRadius: BorderRadius.circular(25),
             ),
             child: Text(

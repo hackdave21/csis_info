@@ -1,10 +1,12 @@
-import 'package:example/model/retro_game.dart';
-import 'package:example/widgets/retro_game_header.dart';
-// import 'package:example/widgets/stats_card.dart';
-import 'package:example/widgets/game_card.dart';
-import 'package:example/widgets/game_dialog_helpers.dart';
+import 'package:example/games/snake_game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'widgets/retro_game_header.dart';
+import 'widgets/stats_card.dart';
+import 'widgets/game_card.dart';
+import 'widgets/game_dialog_helpers.dart';
+import 'model/retro_game.dart';
+ import 'games/tetris_game.dart'; 
 
 class RetroGamesPage extends StatefulWidget {
   const RetroGamesPage({super.key});
@@ -18,7 +20,6 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
   late AnimationController _animationController;
   late Animation<double> _scaleAnimation;
 
-// listes de jeux
   final List<RetroGame> games = [
     RetroGame(
       name: 'Tetris',
@@ -65,6 +66,26 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
     });
   }
 
+  void _playGame(RetroGame game) {
+    // naviguer vers le vrai jeu selon le nom
+    switch (game.name) {
+      case 'Tetris':
+        Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (context) => const TetrisGame()),
+        );
+        break;
+      case 'Jeu de serpent':
+        Navigator.push(
+          context,
+          CupertinoPageRoute(builder: (context) => const SnakeGame()),
+        );
+        break;
+      default:
+        GameDialogHelpers.showGameComingSoonModal(context, game);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
@@ -87,8 +108,8 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
             ),
           ),
           backgroundColor: _isDarkMode 
-              ? CupertinoColors.black
-              : CupertinoColors.white,
+              ? CupertinoColors.black.withOpacity(0.9)
+              : CupertinoColors.white.withOpacity(0.9),
           trailing: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: _toggleTheme,
@@ -125,8 +146,8 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
                               isDarkMode: _isDarkMode,
                               gamesCount: games.length,
                             ),
-                            // const SizedBox(height: 30),
-                            // StatsCard(isDarkMode: _isDarkMode),
+                            const SizedBox(height: 30),
+                            StatsCard(isDarkMode: _isDarkMode),
                             const SizedBox(height: 25),
                           ],
                         ),
@@ -141,7 +162,7 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
                               game: games[index],
                               index: index,
                               isDarkMode: _isDarkMode,
-                              onTap: () => GameDialogHelpers.showPlayGameDialog(context, games[index]),
+                              onTap: () => _playGame(games[index]),
                             ),
                           );
                         },
