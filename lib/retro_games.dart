@@ -11,8 +11,8 @@ export 'src/retro_games_wigets/game_dialog_helpers.dart';
 // Exportez les jeux individuels si nécessaire
 export 'src/games/tetris_game.dart';
 export 'src/games/snake_game.dart';
-export 'src/games/tic_tac_toe_game.dart';
-export 'src/games/memory_game.dart';
-export 'src/games/game_2048.dart';
+// export 'src/games/tic_tac_toe_game.dart';
+// export 'src/games/memory_game.dart';
+// export 'src/games/game_2048.dart';
 
 export 'src/retro_games_wigets/retro_games_utils.dart';

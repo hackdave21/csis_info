@@ -23,33 +23,33 @@ class RetroGamesUtils {
         players: '1 Joueur',
         category: 'Arcade',
       ),
-      RetroGame(
-        name: 'Tic Tac Toe',
-        description: 'Alignez 3 symboles identiques pour gagner la partie',
-        icon: '❌',
-        color: CupertinoColors.systemBlue,
-        difficulty: 'Facile',
-        players: '2 Joueurs',
-        category: 'Stratégie',
-      ),
-      RetroGame(
-        name: 'Memory',
-        description: 'Trouvez toutes les paires en retournant les cartes',
-        icon: '🧠',
-        color: CupertinoColors.systemPurple,
-        difficulty: 'Moyen',
-        players: '1 Joueur',
-        category: 'Réflexion',
-      ),
-      RetroGame(
-        name: '2048',
-        description: 'Glissez les tuiles pour atteindre 2048',
-        icon: '🎯',
-        color: CupertinoColors.systemYellow,
-        difficulty: 'Moyen',
-        players: '1 Joueur',
-        category: 'Réflexion',
-      )
+      // RetroGame(
+      //   name: 'Tic Tac Toe',
+      //   description: 'Alignez 3 symboles identiques pour gagner la partie',
+      //   icon: '❌',
+      //   color: CupertinoColors.systemBlue,
+      //   difficulty: 'Facile',
+      //   players: '2 Joueurs',
+      //   category: 'Stratégie',
+      // ),
+      // RetroGame(
+      //   name: 'Memory',
+      //   description: 'Trouvez toutes les paires en retournant les cartes',
+      //   icon: '🧠',
+      //   color: CupertinoColors.systemPurple,
+      //   difficulty: 'Moyen',
+      //   players: '1 Joueur',
+      //   category: 'Réflexion',
+      // ),
+      // RetroGame(
+      //   name: '2048',
+      //   description: 'Glissez les tuiles pour atteindre 2048',
+      //   icon: '🎯',
+      //   color: CupertinoColors.systemYellow,
+      //   difficulty: 'Moyen',
+      //   players: '1 Joueur',
+      //   category: 'Réflexion',
+      // )
     ];
   }
 }

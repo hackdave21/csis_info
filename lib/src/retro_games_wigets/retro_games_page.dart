@@ -37,33 +37,33 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
       players: '1 Joueur',
       category: 'Arcade',
     ),
-    RetroGame(
-    name: 'Tic Tac Toe',
-    description: 'Alignez 3 symboles identiques pour gagner la partie',
-    icon: '❌',
-    color: CupertinoColors.systemBlue,
-    difficulty: 'Facile',
-    players: '2 Joueurs',
-    category: 'Stratégie',
-  ),
-  RetroGame(
-    name: 'Memory',
-    description: 'Trouvez toutes les paires en retournant les cartes',
-    icon: '🧠',
-    color: CupertinoColors.systemPurple,
-    difficulty: 'Moyen',
-    players: '1 Joueur',
-    category: 'Réflexion',
-  ),
-  RetroGame(
-  name: '2048',
-  description: 'Glissez les tuiles pour atteindre 2048',
-  icon: '🎯',
-  color: CupertinoColors.systemYellow,
-  difficulty: 'Moyen',
-  players: '1 Joueur',
-  category: 'Réflexion',
-)
+//     RetroGame(
+//     name: 'Tic Tac Toe',
+//     description: 'Alignez 3 symboles identiques pour gagner la partie',
+//     icon: '❌',
+//     color: CupertinoColors.systemBlue,
+//     difficulty: 'Facile',
+//     players: '2 Joueurs',
+//     category: 'Stratégie',
+//   ),
+//   RetroGame(
+//     name: 'Memory',
+//     description: 'Trouvez toutes les paires en retournant les cartes',
+//     icon: '🧠',
+//     color: CupertinoColors.systemPurple,
+//     difficulty: 'Moyen',
+//     players: '1 Joueur',
+//     category: 'Réflexion',
+//   ),
+//   RetroGame(
+//   name: '2048',
+//   description: 'Glissez les tuiles pour atteindre 2048',
+//   icon: '🎯',
+//   color: CupertinoColors.systemYellow,
+//   difficulty: 'Moyen',
+//   players: '1 Joueur',
+//   category: 'Réflexion',
+// )
   ];
 
   @override
@@ -106,24 +106,24 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
           CupertinoPageRoute(builder: (context) => const SnakeGame()),
         );
         break;
-        case 'Tic Tac Toe':
-        Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (context)=> const TicTacToeGame())
-        );
-        break;
-        case 'Memory':
-        Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (context) => const MemoryGame())
-          );
-          break;
-           case '2048':
-        Navigator.push(
-          context,
-          CupertinoPageRoute(builder: (context) => const Game2048())
-          );
-          break;
+        // case 'Tic Tac Toe':
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(builder: (context)=> const TicTacToeGame())
+        // );
+        // break;
+        // case 'Memory':
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(builder: (context) => const MemoryGame())
+        //   );
+        //   break;
+        //    case '2048':
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(builder: (context) => const Game2048())
+        //   );
+        //   break;
       default:
         GameDialogHelpers.showGameComingSoonModal(context, game);
     }
