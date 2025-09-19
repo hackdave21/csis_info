@@ -73,6 +73,23 @@ CsisServicesList(
 )
 ```
 
+### 5. 🎮 Jeux Rétro
+
+Le package inclut également une collection de jeux rétro classiques :
+
+### Utilisation des jeux
+
+```dart
+import 'package:csis_info/csis_info.dart';
+import 'package:csis_info/retro_games.dart';
+
+class GamesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RetroGamesPage(); 
+  }
+}
+
 ### Utilisation simple (Recommandée)
 
 ```dart

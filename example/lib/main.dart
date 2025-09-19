@@ -1,11 +1,10 @@
-
+import 'package:csis_info/csis_info.dart';
+import 'package:csis_info/retro_games.dart';
 import 'package:example/app_theme.dart';
-// import 'package:example/csis_test_page.dart';
-import 'package:example/retro_games_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CSIS Info Package Demo',
+     title: 'Jeux de CSIS ',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme, 
       darkTheme: AppTheme.darkTheme,

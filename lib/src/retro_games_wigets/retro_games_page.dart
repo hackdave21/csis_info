@@ -1,13 +1,10 @@
-import 'package:example/games/snake_game.dart';
+import 'package:csis_info/retro_games.dart';
+// import 'package:csis_info/src/games/game_2048.dart';
+// import 'package:csis_info/src/games/memory_game.dart';
+// import 'package:csis_info/src/games/tic_tac_toe_game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'widgets/retro_game_header.dart';
-import 'widgets/stats_card.dart';
-import 'widgets/game_card.dart';
-import 'widgets/game_dialog_helpers.dart';
-import 'model/retro_game.dart';
-import 'games/tetris_game.dart'; 
 
 class RetroGamesPage extends StatefulWidget {
   const RetroGamesPage({super.key});
@@ -40,6 +37,33 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
       players: '1 Joueur',
       category: 'Arcade',
     ),
+//     RetroGame(
+//     name: 'Tic Tac Toe',
+//     description: 'Alignez 3 symboles identiques pour gagner la partie',
+//     icon: '❌',
+//     color: CupertinoColors.systemBlue,
+//     difficulty: 'Facile',
+//     players: '2 Joueurs',
+//     category: 'Stratégie',
+//   ),
+//   RetroGame(
+//     name: 'Memory',
+//     description: 'Trouvez toutes les paires en retournant les cartes',
+//     icon: '🧠',
+//     color: CupertinoColors.systemPurple,
+//     difficulty: 'Moyen',
+//     players: '1 Joueur',
+//     category: 'Réflexion',
+//   ),
+//   RetroGame(
+//   name: '2048',
+//   description: 'Glissez les tuiles pour atteindre 2048',
+//   icon: '🎯',
+//   color: CupertinoColors.systemYellow,
+//   difficulty: 'Moyen',
+//   players: '1 Joueur',
+//   category: 'Réflexion',
+// )
   ];
 
   @override
@@ -82,6 +106,24 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
           CupertinoPageRoute(builder: (context) => const SnakeGame()),
         );
         break;
+        // case 'Tic Tac Toe':
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(builder: (context)=> const TicTacToeGame())
+        // );
+        // break;
+        // case 'Memory':
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(builder: (context) => const MemoryGame())
+        //   );
+        //   break;
+        //    case '2048':
+        // Navigator.push(
+        //   context,
+        //   CupertinoPageRoute(builder: (context) => const Game2048())
+        //   );
+        //   break;
       default:
         GameDialogHelpers.showGameComingSoonModal(context, game);
     }

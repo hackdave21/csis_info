@@ -1,6 +1,6 @@
+import 'package:csis_info/retro_games.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:example/model/retro_game.dart';
 
 class GameDialogHelpers {
   static void showPlayGameDialog(BuildContext context, RetroGame game) {

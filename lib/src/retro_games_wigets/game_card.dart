@@ -1,7 +1,7 @@
+import 'package:csis_info/retro_games.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:example/model/retro_game.dart';
 
 class GameCard extends StatelessWidget {
   final RetroGame game;
