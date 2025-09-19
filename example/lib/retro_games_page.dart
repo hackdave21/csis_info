@@ -1,12 +1,13 @@
 import 'package:example/games/snake_game.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'widgets/retro_game_header.dart';
 import 'widgets/stats_card.dart';
 import 'widgets/game_card.dart';
 import 'widgets/game_dialog_helpers.dart';
 import 'model/retro_game.dart';
- import 'games/tetris_game.dart'; 
+import 'games/tetris_game.dart'; 
 
 class RetroGamesPage extends StatefulWidget {
   const RetroGamesPage({super.key});
@@ -34,7 +35,7 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
       name: 'Jeu de serpent',
       description: 'Guidez le serpent pour manger et grandir sans vous mordre',
       icon: '🐍',
-      color: CupertinoColors.systemBlue,
+      color: CupertinoColors.systemGreen,
       difficulty: 'Moyen',
       players: '1 Joueur',
       category: 'Arcade',
@@ -94,7 +95,7 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
         brightness: _isDarkMode ? Brightness.dark : Brightness.light,
         primaryColor: CupertinoColors.systemBlue,
         scaffoldBackgroundColor: _isDarkMode 
-            ? CupertinoColors.black 
+            ? Color.lerp(CupertinoColors.black, CupertinoColors.systemGrey6, 0.3)!
             : CupertinoColors.systemGroupedBackground,
       ),
       home: CupertinoPageScaffold(
@@ -108,8 +109,8 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
             ),
           ),
           backgroundColor: _isDarkMode 
-              ? CupertinoColors.black.withOpacity(0.9)
-              : CupertinoColors.white.withOpacity(0.9),
+              ? Color.lerp(CupertinoColors.systemGrey6, Colors.transparent, 0.2)!
+              : Color.lerp(CupertinoColors.white, Colors.transparent, 0.1)!,
           trailing: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: _toggleTheme,
@@ -134,45 +135,50 @@ class _RetroGamesPageState extends State<RetroGamesPage> with TickerProviderStat
             builder: (context, child) {
               return Transform.scale(
                 scale: _scaleAnimation.value,
-                child: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RetroGameHeader(
-                              isDarkMode: _isDarkMode,
-                              gamesCount: games.length,
-                            ),
-                            const SizedBox(height: 30),
-                            StatsCard(isDarkMode: _isDarkMode),
-                            const SizedBox(height: 25),
-                          ],
+                child: Container(
+                  color: _isDarkMode 
+                      ? Color.lerp(CupertinoColors.systemGrey6, CupertinoColors.black, 0.2)!
+                      : CupertinoColors.systemGroupedBackground,
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RetroGameHeader(
+                                isDarkMode: _isDarkMode,
+                                gamesCount: games.length,
+                              ),
+                              const SizedBox(height: 30),
+                              StatsCard(isDarkMode: _isDarkMode),
+                              const SizedBox(height: 25),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: GameCard(
-                              game: games[index],
-                              index: index,
-                              isDarkMode: _isDarkMode,
-                              onTap: () => _playGame(games[index]),
-                            ),
-                          );
-                        },
-                        childCount: games.length,
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                              child: GameCard(
+                                game: games[index],
+                                index: index,
+                                isDarkMode: _isDarkMode,
+                                onTap: () => _playGame(games[index]),
+                              ),
+                            );
+                          },
+                          childCount: games.length,
+                        ),
                       ),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(height: 50),
-                    ),
-                  ],
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 50),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

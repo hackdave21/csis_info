@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:example/model/retro_game.dart';
 
@@ -39,7 +40,7 @@ class GameCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: game.color.withOpacity(0.2),
+                color: Color.lerp(game.color, Colors.transparent, 0.8)!,
                 blurRadius: 15,
                 offset: const Offset(0, 8),
               ),
@@ -55,14 +56,17 @@ class GameCard extends StatelessWidget {
                     height: 60,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [game.color, game.color.withOpacity(0.7)],
+                        colors: [
+                          game.color, 
+                          Color.lerp(game.color, Colors.white, 0.3)!
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(18),
                       boxShadow: [
                         BoxShadow(
-                          color: game.color.withOpacity(0.3),
+                          color: Color.lerp(game.color, Colors.transparent, 0.7)!,
                           blurRadius: 8,
                           offset: const Offset(0, 4),
                         ),
@@ -103,7 +107,7 @@ class GameCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: game.color.withOpacity(0.1),
+                      color: Color.lerp(game.color, Colors.transparent, 0.9)!,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -152,9 +156,9 @@ class GameTag extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.15),
+        color: Color.lerp(color, Colors.transparent, 0.85)!,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: Color.lerp(color, Colors.transparent, 0.7)!),
       ),
       child: Text(
         text,

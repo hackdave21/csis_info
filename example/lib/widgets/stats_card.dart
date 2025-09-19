@@ -41,12 +41,6 @@ class StatsCard extends StatelessWidget {
             value: '0',
             isDarkMode: isDarkMode,
           ),
-          _StatItem(
-            icon: CupertinoIcons.gauge,
-            label: 'Précision',
-            value: '0%',
-            isDarkMode: isDarkMode,
-          ),
         ],
       ),
     );

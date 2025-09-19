@@ -243,16 +243,23 @@ class _TetrisGameState extends State<TetrisGame> {
 
   Widget buildCell(int value) {
     return Container(
-      width: 25,
-      height: 25,
-      margin: const EdgeInsets.all(0.5),
+      width: 22,
+      height: 22,
+      margin: const EdgeInsets.all(0.3),
       decoration: BoxDecoration(
         color: colors[value],
-        borderRadius: BorderRadius.circular(3),
+        borderRadius: BorderRadius.circular(2),
         border: value != 0 ? Border.all(
-          color: Colors.white.withOpacity(0.3),
-          width: 1,
+          color: Color.lerp(Colors.white, Colors.transparent, 0.6)!,
+          width: 0.8,
         ) : null,
+        boxShadow: value != 0 ? [
+          BoxShadow(
+            color: Color.lerp(colors[value], Colors.transparent, 0.7)!,
+            blurRadius: 2,
+            offset: const Offset(0, 1),
+          ),
+        ] : null,
       ),
     );
   }
@@ -282,11 +289,14 @@ class _TetrisGameState extends State<TetrisGame> {
       debugShowCheckedModeBanner: false,
       home: CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          middle:  Text('Tetris', style: GoogleFonts.orbitron(
-              fontSize: 18,
+          backgroundColor: Color.lerp(CupertinoColors.systemBackground, Colors.transparent, 0.1)!,
+          middle: Text('Tetris', 
+            style: GoogleFonts.orbitron(
+              fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: CupertinoColors.black,
-            ),),
+              color: CupertinoColors.label,
+            ),
+          ),
           leading: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: () => Navigator.pop(context),
@@ -295,60 +305,69 @@ class _TetrisGameState extends State<TetrisGame> {
           trailing: CupertinoButton(
             padding: EdgeInsets.zero,
             onPressed: togglePause,
-            child: Icon(gamePaused ? CupertinoIcons.play : CupertinoIcons.pause),
+            child: Icon(gamePaused ? CupertinoIcons.play_fill : CupertinoIcons.pause_fill),
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                // Statistiques
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: CupertinoColors.systemGrey6,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          const Text('Score', style: TextStyle(fontSize: 12)),
-                          Text('$score', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text('Niveau', style: TextStyle(fontSize: 12)),
-                          Text('$level', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          const Text('Lignes', style: TextStyle(fontSize: 12)),
-                          Text('$lines', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
+          child: Column(
+            children: [
+              // Statistiques - plus compact
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.lerp(CupertinoColors.systemGrey6, Colors.transparent, 0.2)!,
+                      Color.lerp(CupertinoColors.systemGrey6, Colors.transparent, 0.4)!,
                     ],
                   ),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Color.lerp(CupertinoColors.systemGrey4, Colors.transparent, 0.5)!,
+                  ),
                 ),
-                
-                const SizedBox(height: 20),
-                
-                // Plateau de jeu
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: CupertinoColors.black,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: CupertinoColors.systemGrey, width: 2),
-                    ),
-                    child: Stack(
-                      children: [
-                        Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildStatWidget('Score', score.toString(), CupertinoColors.systemBlue),
+                    _buildStatWidget('Niveau', level.toString(), CupertinoColors.systemOrange),
+                    _buildStatWidget('Lignes', lines.toString(), CupertinoColors.systemGreen),
+                  ],
+                ),
+              ),
+              
+              // Plateau de jeu - utilise l'espace disponible
+              Expanded(
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 65),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            CupertinoColors.black,
+                            const Color(0xFF1a1a1a),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: CupertinoColors.systemGrey2,
+                          width: 2,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.lerp(CupertinoColors.black, Colors.transparent, 0.7)!,
+                            blurRadius: 10,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: getBoardWithCurrentPiece().map((row) => 
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -356,115 +375,234 @@ class _TetrisGameState extends State<TetrisGame> {
                             ),
                           ).toList(),
                         ),
-                        
-                        // Overlay Game Over/Pause
-                        if (gameOver || gamePaused)
-                          Container(
+                      ),
+                    ),
+                    
+                    // Contrôles flottants semi-transparents
+                    Positioned(
+                      bottom: 16,
+                      left: 16,
+                      right: 16,
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.lerp(CupertinoColors.systemBackground, Colors.transparent, 0.1)!,
+                              Color.lerp(CupertinoColors.systemBackground, Colors.transparent, 0.3)!,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: Color.lerp(CupertinoColors.systemGrey4, Colors.transparent, 0.5)!,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color.lerp(CupertinoColors.black, Colors.transparent, 0.9)!,
+                              blurRadius: 20,
+                              offset: const Offset(0, -2),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // Rotation et Drop - plus compact
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                _buildControlButton(
+                                  icon: CupertinoIcons.arrow_clockwise,
+                                  onPressed: gameOver || gamePaused ? null : rotate,
+                                  color: CupertinoColors.systemPurple,
+                                ),
+                                _buildControlButton(
+                                  icon: CupertinoIcons.arrow_down_to_line,
+                                  onPressed: gameOver || gamePaused ? null : () {
+                                    while (!isCollision(currentX, currentY + 1, currentPiece)) {
+                                      moveDown();
+                                    }
+                                  },
+                                  color: CupertinoColors.systemRed,
+                                ),
+                              ],
+                            ),
+                            
+                            const SizedBox(height: 12),
+                            
+                            // Mouvements directionnels
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                _buildControlButton(
+                                  icon: CupertinoIcons.chevron_left,
+                                  onPressed: gameOver || gamePaused ? null : moveLeft,
+                                  color: CupertinoColors.systemBlue,
+                                ),
+                                _buildControlButton(
+                                  icon: CupertinoIcons.chevron_down,
+                                  onPressed: gameOver || gamePaused ? null : moveDown,
+                                  color: CupertinoColors.systemGreen,
+                                ),
+                                _buildControlButton(
+                                  icon: CupertinoIcons.chevron_right,
+                                  onPressed: gameOver || gamePaused ? null : moveRight,
+                                  color: CupertinoColors.systemBlue,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    
+                    // Overlay Game Over/Pause
+                    if (gameOver || gamePaused)
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Container(
                             width: double.infinity,
                             height: double.infinity,
-                            color: Colors.black.withOpacity(0.8),
+                            color: Color.lerp(Colors.black, Colors.transparent, 0.15)!,
                             child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    gameOver ? '🎮 GAME OVER' : '⏸️ PAUSE',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              child: Container(
+                                padding: const EdgeInsets.all(32),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Color.lerp(CupertinoColors.systemBackground, Colors.transparent, 0.05)!,
+                                      Color.lerp(CupertinoColors.systemBackground, Colors.transparent, 0.1)!,
+                                    ],
                                   ),
-                                  const SizedBox(height: 20),
-                                  if (gameOver) ...[
+                                  borderRadius: BorderRadius.circular(24),
+                                  border: Border.all(
+                                    color: gameOver ? CupertinoColors.systemRed : CupertinoColors.systemOrange,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
                                     Text(
-                                      'Score Final: $score',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18,
+                                      gameOver ? '🎮 GAME OVER' : '⏸️ PAUSE',
+                                      style: GoogleFonts.orbitron(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: gameOver ? CupertinoColors.systemRed : CupertinoColors.systemOrange,
                                       ),
                                     ),
-                                    const SizedBox(height: 20),
-                                    CupertinoButton.filled(
-                                      onPressed: restartGame,
-                                      child: const Text('Rejouer'),
-                                    ),
-                                  ] else ...[
-                                    CupertinoButton.filled(
-                                      onPressed: togglePause,
-                                      child: const Text('Continuer'),
-                                    ),
+                                    const SizedBox(height: 16),
+                                    if (gameOver) ...[
+                                      Text(
+                                        'Score Final: $score',
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 20),
+                                      CupertinoButton.filled(
+                                        onPressed: restartGame,
+                                        child: const Text('Rejouer'),
+                                      ),
+                                    ] else ...[
+                                      CupertinoButton.filled(
+                                        onPressed: togglePause,
+                                        child: const Text('Continuer'),
+                                      ),
+                                    ],
                                   ],
-                                ],
+                                ),
                               ),
                             ),
                           ),
-                      ],
-                    ),
-                  ),
-                ),
-                
-                const SizedBox(height: 20),
-                
-                // Contrôles
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: CupertinoColors.systemGrey6,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                    children: [
-                      // Rotation et Drop
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CupertinoButton.filled(
-                            padding: const EdgeInsets.all(15),
-                            onPressed: gameOver || gamePaused ? null : rotate,
-                            child: const Icon(CupertinoIcons.refresh, size: 25),
-                          ),
-                          CupertinoButton.filled(
-                            padding: const EdgeInsets.all(15),
-                            onPressed: gameOver || gamePaused ? null : () {
-                              while (!isCollision(currentX, currentY + 1, currentPiece)) {
-                                moveDown();
-                              }
-                            },
-                            child: const Icon(CupertinoIcons.down_arrow, size: 25),
-                          ),
-                        ],
+                        ),
                       ),
-                      
-                      const SizedBox(height: 15),
-                      
-                      // mouvements du jeu
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CupertinoButton.filled(
-                            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                            onPressed: gameOver || gamePaused ? null : moveLeft,
-                            child: const Icon(CupertinoIcons.left_chevron, size: 25),
-                          ),
-                          CupertinoButton.filled(
-                            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                            onPressed: gameOver || gamePaused ? null : moveDown,
-                            child: const Icon(CupertinoIcons.chevron_down, size: 25),
-                          ),
-                          CupertinoButton.filled(
-                            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-                            onPressed: gameOver || gamePaused ? null : moveRight,
-                            child: const Icon(CupertinoIcons.right_chevron, size: 25),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
-              ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatWidget(String label, String value, Color color) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            color: CupertinoColors.secondaryLabel,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          decoration: BoxDecoration(
+            color: Color.lerp(color, Colors.transparent, 0.9)!,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: Color.lerp(color, Colors.transparent, 0.7)!,
+              width: 1,
             ),
           ),
+          child: Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildControlButton({
+    required IconData icon,
+    required VoidCallback? onPressed,
+    required Color color,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: onPressed != null ? [
+            Color.lerp(color, Colors.white, 0.2)!,
+            color,
+          ] : [
+            CupertinoColors.systemGrey4,
+            CupertinoColors.systemGrey5,
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: onPressed != null ? [
+          BoxShadow(
+            color: Color.lerp(color, Colors.transparent, 0.7)!,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ] : null,
+      ),
+      child: CupertinoButton(
+        padding: const EdgeInsets.all(12),
+        onPressed: onPressed,
+        child: Icon(
+          icon,
+          size: 24,
+          color: onPressed != null ? CupertinoColors.white : CupertinoColors.systemGrey,
         ),
       ),
     );
