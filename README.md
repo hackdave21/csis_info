@@ -195,7 +195,7 @@ class CustomCsisWidget extends StatelessWidget {
 - Maintenance & Support
 
 ### Contact :
-- **Téléphone** : +228 XX XX XX XX
+- **Téléphone** : +1(240) 425-6583
 - **Email** : contact@csis.tg
 - **Adresse** : Lomé, Togo
 
