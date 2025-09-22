@@ -108,6 +108,41 @@ class AboutPage extends StatelessWidget {
   }
 }
 ```
+### 5. 🎮 Jeux Rétro
+
+Le package inclut également une collection de jeux integrer avec des plugins
+
+### Utilisation des jeux
+
+```dart
+import 'package:csis_info/csis_info.dart';
+import 'package:csis_info/retro_games.dart';
+
+class GamesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RetroGamesPage(); 
+  }
+}
+
+### Utilisation simple (Recommandée)
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:csis_info/csis_info.dart';
+
+class AboutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('À propos de CSIS')),
+      body: SingleChildScrollView(
+        child: CsisInfo(), 
+      ),
+    );
+  }
+}
+```
 
 ### Utilisation avec personnalisation
 

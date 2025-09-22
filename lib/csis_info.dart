@@ -19,3 +19,6 @@ export 'src/widgets/csis_services_list.dart';
 
 // Exportation des jeux rétro
 export 'retro_games.dart';
+
+// Widget de jeux avec 
+export 'src/widgets/csis_games_widget.dart';
