@@ -1,5 +1,6 @@
-import 'package:csis_info/csis_info.dart';
+
 import 'package:flutter/cupertino.dart';
+// import 'package:flame/game.dart'; 
 
 class PackagesTestPage extends StatelessWidget {
   const PackagesTestPage({super.key});
@@ -15,8 +16,8 @@ class PackagesTestPage extends StatelessWidget {
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-              children: const [
-                CsisGames(),
+              children:  [
+                 
               ],
             ),
           ),
