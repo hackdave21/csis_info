@@ -18,7 +18,7 @@ class PackagesTestPage extends StatelessWidget {
             child: Column(
               children: [
 
-                // Section Jeux CSIS
+                // section Jeux CSIS avec les plugins ajouté
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: const CsisGames(
@@ -28,6 +28,9 @@ class PackagesTestPage extends StatelessWidget {
                   ),
                 ),
 
+              // jeux basiques developpés
+                RetroGamesPage(),
+                
                 // Exemple de combinaison personnalisée
                 _buildCustomSection(),
               ],
