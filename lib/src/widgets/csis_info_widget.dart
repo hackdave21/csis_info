@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../constants/csis_constants.dart';
@@ -155,28 +156,71 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
       );
     }
 
-    // Appliquer le style
+    // Appliquer le style en fonction du thème
+    return _buildStyledContainer(content);
+  }
+
+  Widget _buildStyledContainer(Widget child) {
+    final isCupertino = Theme.of(context).platform == TargetPlatform.iOS;
+    
     switch (widget.style) {
       case CsisInfoStyle.card:
+        if (isCupertino) {
+          return Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: CupertinoTheme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: CupertinoColors.systemGrey4,
+              ),
+            ),
+            child: child,
+          );
+        }
         return Card(
           margin: EdgeInsets.zero,
-          child: content,
+          child: child,
         );
+        
       case CsisInfoStyle.elevated:
+        if (isCupertino) {
+          return Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: CupertinoTheme.of(context).scaffoldBackgroundColor,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: CupertinoColors.systemGrey.withOpacity(0.2),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: child,
+          );
+        }
         return Card(
           margin: EdgeInsets.zero,
           elevation: 8,
-          child: content,
+          child: child,
         );
+        
       case CsisInfoStyle.flat:
-        return content;
+        return child;
+        
       case CsisInfoStyle.minimal:
         return Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Color.lerp(Colors.grey, Colors.transparent, 0.8)!),
+            border: Border.all(
+              color: isCupertino 
+                  ? CupertinoColors.systemGrey4
+                  : Color.lerp(Colors.grey, Colors.transparent, 0.8)!,
+            ),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: content,
+          child: child,
         );
     }
   }
@@ -215,7 +259,6 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
       height: widget.logoSize,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -254,56 +297,83 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
   }
 
   Widget _buildContactItem(CsisContact contact) {
-    // L'adresse n'est pas cliquable
+    final isCupertino = Theme.of(context).platform == TargetPlatform.iOS;
     bool isClickable = widget.enableContactActions && contact.type != 'address';
     
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: InkWell(
-        onTap: isClickable ? () => _handleContactTap(contact) : null,
+    Widget contactContent = Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: isCupertino 
+            ? CupertinoColors.systemBackground
+            : Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Color.lerp(Colors.grey, Colors.transparent, 0.8)!,
+        border: Border.all(
+          color: isCupertino 
+              ? CupertinoColors.systemGrey4
+              : Color.lerp(Colors.grey, Colors.transparent, 0.8)!,
+        ),
+      ),
+      child: Row(
+        children: [
+          _buildContactIcon(contact),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  contact.displayName,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  contact.value,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
-          child: Row(
-            children: [
-              _buildContactIcon(contact),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      contact.displayName,
-                      style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                        color: Colors.grey[600],
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      contact.value,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (isClickable)
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 16,
-                  color: Colors.grey[400],
-                ),
-            ],
-          ),
+          if (isClickable)
+            Icon(
+              isCupertino ? CupertinoIcons.chevron_right : Icons.arrow_forward_ios,
+              size: 16,
+              color: Colors.grey[400],
+            ),
+        ],
+      ),
+    );
+
+    if (!isClickable) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: contactContent,
+      );
+    }
+
+    if (isCupertino) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () => _handleContactTap(contact),
+          child: contactContent,
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () => _handleContactTap(contact),
+          borderRadius: BorderRadius.circular(12),
+          child: contactContent,
         ),
       ),
     );
@@ -361,15 +431,21 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
   }
 
   Widget _buildServiceItem(CsisService service) {
+    final isCupertino = Theme.of(context).platform == TargetPlatform.iOS;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: isCupertino 
+              ? CupertinoColors.systemBackground
+              : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: Color.lerp(Colors.grey, Colors.transparent, 0.8)!,
+            color: isCupertino 
+                ? CupertinoColors.systemGrey4
+                : Color.lerp(Colors.grey, Colors.transparent, 0.8)!,
           ),
         ),
         child: Column(
@@ -407,7 +483,6 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
                 color: Colors.grey[600],
               ),
             ),
-            // Gestion sécurisée de la propriété features
             if (widget.showServiceFeatures && _getServiceFeatures(service).isNotEmpty) ...[
               const SizedBox(height: 12),
               Wrap(
@@ -439,16 +514,13 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
     );
   }
 
-  // Méthode helper pour obtenir les features de manière sécurisée
   List<String> _getServiceFeatures(CsisService service) {
     try {
-      // Tentative d'accès à la propriété features via reflection ou cast
       final dynamic dynamicService = service;
       if (dynamicService.features != null) {
         return List<String>.from(dynamicService.features);
       }
     } catch (e) {
-      // Si la propriété n'existe pas ou génère une erreur, retourner une liste vide
       debugPrint('Warning: features property not found on CsisService');
     }
     return [];
@@ -484,14 +556,30 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
         uri = Uri.parse('mailto:${contact.value}');
         break;
       case 'address':
-        // L'adresse n'ouvre plus de carte, juste afficher un message
+        final isCupertino = Theme.of(context).platform == TargetPlatform.iOS;
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Adresse: ${contact.value}'),
-              duration: const Duration(seconds: 2),
-            ),
-          );
+          if (isCupertino) {
+            showCupertinoDialog(
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                title: const Text('Adresse'),
+                content: Text(contact.value),
+                actions: [
+                  CupertinoDialogAction(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Adresse: ${contact.value}'),
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
         }
         return;
     }
@@ -502,22 +590,56 @@ class _CsisInfoState extends State<CsisInfo> with TickerProviderStateMixin {
           await launchUrl(uri, mode: LaunchMode.externalApplication);
         } else {
           if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Impossible d\'ouvrir ${contact.displayName}'),
-                backgroundColor: Colors.orange,
-              ),
-            );
+            final isCupertino = Theme.of(context).platform == TargetPlatform.iOS;
+            if (isCupertino) {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => CupertinoAlertDialog(
+                  title: const Text('Erreur'),
+                  content: Text('Impossible d\'ouvrir ${contact.displayName}'),
+                  actions: [
+                    CupertinoDialogAction(
+                      child: const Text('OK'),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Impossible d\'ouvrir ${contact.displayName}'),
+                  backgroundColor: Colors.orange,
+                ),
+              );
+            }
           }
         }
       } catch (e) {
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Erreur lors de l\'ouverture de ${contact.displayName}'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          final isCupertino = Theme.of(context).platform == TargetPlatform.iOS;
+          if (isCupertino) {
+            showCupertinoDialog(
+              context: context,
+              builder: (context) => CupertinoAlertDialog(
+                title: const Text('Erreur'),
+                content: Text('Erreur lors de l\'ouverture de ${contact.displayName}'),
+                actions: [
+                  CupertinoDialogAction(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Erreur lors de l\'ouverture de ${contact.displayName}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
         }
       }
     }

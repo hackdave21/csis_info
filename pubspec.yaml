@@ -22,6 +22,25 @@ dependencies:
   flame_forge2d: ^0.19.0+2
   flame_kenney_xml: ^0.1.1+12
   xml: ^6.5.0
+  equatable: ^2.0.7
+  
+  flame_audio: ^2.11.10
+  flame_tiled: ^1.21.2
+  bonfire: ^3.6.2
+  
+  # contrôles et interfaces
+  flutter_joystick: ^0.2.2
+  
+  
+  # services de jeux
+  games_services: ^4.1.1
+  
+  # moteur de physique
+  forge2d: ^0.14.2
+  
+  # système d'entités
+  dartemis: ^0.10.0
+
 
 dev_dependencies:
   flutter_test:

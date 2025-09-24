@@ -22,3 +22,8 @@ export 'retro_games.dart';
 
 // Widget de jeux avec 
 export 'src/widgets/csis_games_widget.dart';
+
+// lib/csis_game_plugins.dart
+export 'csis_game_plugins.dart';
+export 'src/models/game_plugin.dart';
+export 'src/models/csis_game_plugins_style.dart';

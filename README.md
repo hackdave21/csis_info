@@ -143,6 +143,33 @@ class AboutPage extends StatelessWidget {
   }
 }
 ```
+### 6. 🎮 Jeu developpé avec flame et forge2D
+### Utilisation du jeu
+
+ Ce widget affiche un jeu développé avec flame et forge2D
+ Exemple d'utilisation:
+ ```dart
+ CsisGames()
+ ```
+
+ Ou avec personnalisation:
+```dart
+ CsisGames(
+   style: CsisGamesStyle.minimal,
+  showHeader: true,
+   maxGames: 2,
+ )
+ ```
+
+ ### 6. 🎮Widget CSIS Game Plugins - Démos des plugins de jeu intégrés
+
+ Ce widget présente tous les plugins de développement de jeux
+ disponibles dans le package CSIS
+
+ Exemple d'utilisation:
+ ```dart
+ CsisGamePlugins()
+ ```
 
 ### Utilisation avec personnalisation
 
