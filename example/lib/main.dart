@@ -4,6 +4,7 @@ import 'package:example/app_theme.dart';
 import 'package:example/packages_test_page.dart';
 import 'package:flutter/material.dart';
 // import 'package:flame/flame.dart'; 
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
      title: 'Jeux de CSIS ',
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       theme: AppTheme.lightTheme, 
       darkTheme: AppTheme.darkTheme,
         // home: const RetroGamesPage(),

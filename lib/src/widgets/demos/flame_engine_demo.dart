@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FlameEngineDemo extends StatelessWidget {
-  const FlameEngineDemo({Key? key}) : super(key: key);
+  const FlameEngineDemo({super.key});
 
   @override
   Widget build(BuildContext context) {

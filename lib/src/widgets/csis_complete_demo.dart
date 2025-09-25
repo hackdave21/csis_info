@@ -3,17 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'csis_game_plugins_widget.dart';
 
-/// Widget de démonstration complète du package CSIS
-/// 
-/// Ce widget combine toutes les fonctionnalités du package :
-/// - Informations de l'entreprise
-/// - Jeux développés
-/// - Plugins de développement de jeux
-/// 
-/// Exemple d'utilisation:
-/// ```dart
-/// CsisCompleteDemo()
-/// ```
+
 class CsisCompleteDemo extends StatefulWidget {
   const CsisCompleteDemo({super.key});
 
@@ -27,7 +17,7 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min, // Important: Changé de max à min
+      mainAxisSize: MainAxisSize.min, 
       children: [
         // En-tête principal
         _buildMainHeader(),
@@ -41,11 +31,10 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
               0: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
                   children: const [
                     Icon(CupertinoIcons.building_2_fill, size: 16),
                     SizedBox(width: 6),
-                    Text('Entreprise'),
+                    Text('Entreprise', style: TextStyle(fontSize: 12),),
                   ],
                 ),
               ),
@@ -82,7 +71,7 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
         
         // Contenu des onglets avec hauteur fixe
         SizedBox(
-          height: 500, // Hauteur fixe pour éviter les contraintes non-bornées
+          height: 800, 
           child: IndexedStack(
             index: _selectedIndex,
             children: const [
@@ -94,7 +83,7 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
                   showLogo: true,
                   showDescription: true,
                   showContacts: true,
-                  showServices: true,
+                  showServices: false,
                 ),
               ),
               

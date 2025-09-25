@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 
 class JoystickDemo extends StatefulWidget {
-  const JoystickDemo({Key? key}) : super(key: key);
+  const JoystickDemo({super.key});
 
   @override
   State<JoystickDemo> createState() => _JoystickDemoState();

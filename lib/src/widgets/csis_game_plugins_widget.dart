@@ -120,7 +120,7 @@ class _CsisGamePluginsState extends State<CsisGamePlugins> {
         : plugins;
 
     Widget content = Column(
-      mainAxisSize: MainAxisSize.min, // Solution principale : utiliser min au lieu de max
+      mainAxisSize: MainAxisSize.min, 
       children: [
         if (widget.showHeader) ...[
           PluginHeader(pluginsCount: plugins.length),
