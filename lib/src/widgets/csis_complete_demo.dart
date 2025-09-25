@@ -19,10 +19,9 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
     return Column(
       mainAxisSize: MainAxisSize.min, 
       children: [
-        // En-tête principal
+        // en tête 
         _buildMainHeader(),
         
-        // Navigation par onglets Cupertino
         Container(
           color: CupertinoColors.systemGrey6,
           child: CupertinoSlidingSegmentedControl<int>(
@@ -108,9 +107,6 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
             ],
           ),
         ),
-        
-        // Barre de navigation inférieure
-        _buildBottomStats(),
       ],
     );
   }
@@ -119,6 +115,7 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
           colors: [
             CupertinoTheme.of(context).primaryColor,
@@ -149,15 +146,16 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'CSIS Package Demo',
+                      'Package csis_info',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(height: 8),
                     Text(
-                      'Showcase complet des fonctionnalités',
+                      'Test complet des fonctionnalités du package',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 14,
@@ -176,8 +174,8 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildHeaderStat('📋', 'Infos', 'Entreprise'),
-              _buildHeaderStat('🎮', 'Jeux', '4 disponibles'),
-              _buildHeaderStat('🛠️', 'Plugins', '9 intégrés'),
+              _buildHeaderStat('🎮', 'Jeux', '6 disponibles'),
+              _buildHeaderStat('🛠️', 'Plugins', '4 intégrés'),
             ],
           ),
         ],
@@ -209,50 +207,4 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
     );
   }
 
-  Widget _buildBottomStats() {
-    final stats = [
-      ('Entreprise', _selectedIndex == 0),
-      ('Jeux', _selectedIndex == 1),
-      ('Plugins', _selectedIndex == 2),
-    ];
-
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-        color: CupertinoColors.systemBackground,
-        border: Border(
-          top: BorderSide(
-            color: CupertinoColors.systemGrey4,
-            width: 0.5,
-          ),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: stats.asMap().entries.map((entry) {
-          final index = entry.key;
-          final stat = entry.value;
-          final isSelected = stat.$2;
-          
-          return CupertinoButton(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            onPressed: () {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            child: Text(
-              stat.$1,
-              style: TextStyle(
-                color: isSelected 
-                    ? CupertinoTheme.of(context).primaryColor
-                    : CupertinoColors.systemGrey,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
 }

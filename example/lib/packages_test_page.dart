@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:csis_info/csis_info.dart' ;
 import 'package:csis_info/src/widgets/csis_complete_demo.dart'; 
+
 class PackagesTestPage extends StatelessWidget {
   const PackagesTestPage({super.key});
 

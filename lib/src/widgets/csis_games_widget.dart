@@ -1,4 +1,5 @@
 import 'package:csis_info/src/games/physics_game.dart';
+import 'package:csis_info/src/retro_games_wigets/retro_games_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,11 +48,20 @@ class _CsisGamesState extends State<CsisGames> with TickerProviderStateMixin {
       name: 'Physics World',
       description: 'Monde physique avec aliens, briques et interactions réalistes',
       icon: '🚀',
-      color: CupertinoColors.systemPurple,
+      color: CupertinoColors.systemBlue,
       difficulty: 'Avancé',
       category: 'Physique',
       gameWidget: () => const PhysicsGameWidget(),
-    )
+    ),
+    CsisGame(
+    name: 'Jeux Classiques',
+    description: '5 jeux : Tetris, Snake, Tic Tac Toe, Memory, 2048',
+    icon: '👾',
+    color: CupertinoColors.systemBlue,
+    difficulty: 'Tous niveaux',
+    category: 'Arcade',
+    gameWidget: () => const RetroGamesPage(),
+  ),
   ];
 
   @override
@@ -109,7 +119,6 @@ class _CsisGamesState extends State<CsisGames> with TickerProviderStateMixin {
           SizedBox(height: widget.gameSpacing + 10),
         ],
         if (widget.showStats) ...[
-          _buildStatsCard(),
           SizedBox(height: widget.gameSpacing + 5),
         ],
         ...displayGames.asMap().entries.map((entry) {
@@ -121,7 +130,7 @@ class _CsisGamesState extends State<CsisGames> with TickerProviderStateMixin {
             ),
             child: _buildGameCard(game, index),
           );
-        }).toList(),
+        }),
       ],
     );
 
@@ -228,51 +237,7 @@ class _CsisGamesState extends State<CsisGames> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildStatsCard() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: CupertinoColors.systemGrey.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          _buildStatItem('🏆', 'Meilleur', '12,450'),
-          _buildStatItem('⚡', 'Parties', '47'),
-          _buildStatItem('🎯', 'Précision', '85%'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatItem(String icon, String label, String value) {
-    return Column(
-      children: [
-        Text(icon, style: const TextStyle(fontSize: 25)),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          label,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Colors.grey[600],
-          ),
-        ),
-      ],
-    );
-  }
+  
 
   Widget _buildGameCard(CsisGame game, int index) {
     return TweenAnimationBuilder(
