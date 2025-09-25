@@ -1,19 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class BonfireDemo extends StatelessWidget {
   const BonfireDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bonfire RPG Demo'),
-        backgroundColor: Colors.green,
-        foregroundColor: Colors.white,
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Bonfire RPG Demo'),
+        backgroundColor: CupertinoColors.systemGreen,
       ),
-      body: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(
           children: [
+            const SizedBox(height: 20), // Espacement pour la navigation bar
+            
             // Simulation d'un monde RPG
             Container(
               height: 300,
@@ -22,7 +23,7 @@ class BonfireDemo extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
+                    color: CupertinoColors.black.withOpacity(0.2),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -35,7 +36,10 @@ class BonfireDemo extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       gradient: LinearGradient(
-                        colors: [Colors.green.shade200, Colors.green.shade400],
+                        colors: [
+                          CupertinoColors.systemGreen.withOpacity(0.4),
+                          CupertinoColors.systemGreen.withOpacity(0.8)
+                        ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -71,12 +75,12 @@ class BonfireDemo extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.7),
+                        color: CupertinoColors.black.withOpacity(0.7),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
                         'RPG World Demo',
-                        style: TextStyle(color: Colors.white, fontSize: 14),
+                        style: TextStyle(color: CupertinoColors.white, fontSize: 14),
                       ),
                     ),
                   ),
@@ -100,22 +104,37 @@ class BonfireDemo extends StatelessWidget {
             const SizedBox(height: 20),
             
             // Fonctionnalités
-            Card(
+            Container(
               margin: const EdgeInsets.symmetric(horizontal: 20),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const Text('Fonctionnalités Bonfire:', 
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 15),
-                    _buildFeatureRow('🗺️', 'Système de cartes Tiled'),
-                    _buildFeatureRow('👾', 'Personnages animés'),
-                    _buildFeatureRow('⚔️', 'Système de combat'),
-                    _buildFeatureRow('💬', 'Dialogues et NPCs'),
-                    _buildFeatureRow('🎒', 'Inventaire et objets'),
-                  ],
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemBackground,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: CupertinoColors.separator,
+                  width: 1,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: CupertinoColors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    'Fonctionnalités Bonfire:', 
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  const SizedBox(height: 15),
+                  _buildFeatureRow('🗺️', 'Système de cartes Tiled'),
+                  _buildFeatureRow('👾', 'Personnages animés'),
+                  _buildFeatureRow('⚔️', 'Système de combat'),
+                  _buildFeatureRow('💬', 'Dialogues et NPCs'),
+                  _buildFeatureRow('🎒', 'Inventaire et objets'),
+                ],
               ),
             ),
             const SizedBox(height: 20),
@@ -132,7 +151,12 @@ class BonfireDemo extends StatelessWidget {
         children: [
           Text(icon, style: const TextStyle(fontSize: 20)),
           const SizedBox(width: 10),
-          Expanded(child: Text(text)),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 15),
+            ),
+          ),
         ],
       ),
     );

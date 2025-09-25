@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_joystick/flutter_joystick.dart';
 
 class JoystickDemo extends StatefulWidget {
@@ -14,13 +14,12 @@ class _JoystickDemoState extends State<JoystickDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter Joystick Demo'),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Flutter Joystick Demo'),
+        backgroundColor: CupertinoColors.systemBlue,
       ),
-      body: Stack(
+      child: Stack(
         children: [
           // Zone de jeu
           Container(
@@ -28,7 +27,10 @@ class _JoystickDemoState extends State<JoystickDemo> {
             height: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.green.withOpacity(0.2), Colors.blue.withOpacity(0.2)],
+                colors: [
+                  CupertinoColors.systemGreen.withOpacity(0.2), 
+                  CupertinoColors.systemBlue.withOpacity(0.2)
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -51,12 +53,12 @@ class _JoystickDemoState extends State<JoystickDemo> {
                     height: 60,
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: [Colors.blue, Colors.lightBlue],
+                        colors: [CupertinoColors.systemBlue, CupertinoColors.activeBlue],
                       ),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.blue.withOpacity(0.3),
+                          color: CupertinoColors.systemBlue.withOpacity(0.3),
                           blurRadius: 10,
                           offset: const Offset(0, 5),
                         ),
@@ -86,12 +88,12 @@ class _JoystickDemoState extends State<JoystickDemo> {
                 width: 120,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.3),
+                  color: CupertinoColors.systemBlue.withOpacity(0.3),
                   shape: BoxShape.circle,
-                  border: Border.all(color: Colors.blue, width: 3),
+                  border: Border.all(color: CupertinoColors.systemBlue, width: 3),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: CupertinoColors.black.withOpacity(0.1),
                       blurRadius: 10,
                       offset: const Offset(0, 5),
                     ),
@@ -103,12 +105,12 @@ class _JoystickDemoState extends State<JoystickDemo> {
                 height: 50,
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    colors: [Colors.blue, Colors.lightBlue],
+                    colors: [CupertinoColors.systemBlue, CupertinoColors.activeBlue],
                   ),
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: CupertinoColors.black.withOpacity(0.2),
                       blurRadius: 5,
                       offset: const Offset(0, 2),
                     ),
@@ -120,16 +122,16 @@ class _JoystickDemoState extends State<JoystickDemo> {
           
           // Informations
           Positioned(
-            top: 100,
+            top: 120, // Ajusté pour éviter la navigation bar
             right: 20,
             child: Container(
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.8),
+                color: CupertinoColors.black.withOpacity(0.8),
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
+                    color: CupertinoColors.black.withOpacity(0.3),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),
@@ -139,15 +141,18 @@ class _JoystickDemoState extends State<JoystickDemo> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text('Position:', 
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                      color: CupertinoColors.white, 
+                      fontWeight: FontWeight.bold
+                    )),
                   const SizedBox(height: 5),
                   Text('X: ${playerX.toStringAsFixed(2)}', 
-                    style: const TextStyle(color: Colors.lightBlue)),
+                    style: const TextStyle(color: CupertinoColors.activeBlue)),
                   Text('Y: ${playerY.toStringAsFixed(2)}', 
-                    style: const TextStyle(color: Colors.lightBlue)),
+                    style: const TextStyle(color: CupertinoColors.activeBlue)),
                   const SizedBox(height: 10),
                   Text('Distance: ${(playerX.abs() + playerY.abs()).toStringAsFixed(2)}',
-                    style: const TextStyle(color: Colors.orange)),
+                    style: const TextStyle(color: CupertinoColors.systemOrange)),
                 ],
               ),
             ),
@@ -162,7 +167,7 @@ class GridPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.grey.withOpacity(0.1)
+      ..color = CupertinoColors.systemGrey.withOpacity(0.1)
       ..strokeWidth = 1;
 
     const spacing = 50.0;

@@ -1,28 +1,27 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class FlameEngineDemo extends StatelessWidget {
   const FlameEngineDemo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flame Engine Demo'),
-        backgroundColor: Colors.orange,
-        foregroundColor: Colors.white,
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Flame Engine Demo'),
+        backgroundColor: CupertinoColors.systemOrange,
       ),
-      body: const Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.whatshot, size: 100, color: Colors.orange),
-            SizedBox(height: 20),
-            Text(
+            const Icon(CupertinoIcons.flame, size: 100, color: CupertinoColors.systemOrange),
+            const SizedBox(height: 20),
+            const Text(
               'Flame Game Engine',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
-            Padding(
+            const SizedBox(height: 10),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 40),
               child: Text(
                 'Moteur de jeu 2D complet avec physique, audio, et plus',
@@ -30,22 +29,73 @@ class FlameEngineDemo extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
             ),
-            SizedBox(height: 30),
-            Card(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Text('Fonctionnalités:', style: TextStyle(fontWeight: FontWeight.bold)),
-                    SizedBox(height: 10),
-                    Text('• Sprites et animations'),
-                    Text('• Physique avec Forge2D'),
-                    Text('• Audio et effets sonores'),
-                    Text('• Détection de collisions'),
-                    Text('• Système de particules'),
-                  ],
+            const SizedBox(height: 30),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: CupertinoColors.systemBackground,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: CupertinoColors.separator,
+                  width: 1,
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: CupertinoColors.black.withOpacity(0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Fonctionnalités Flame:',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Text('🎨', style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 10),
+                      Expanded(child: Text('Sprites et animations')),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text('⚡', style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 10),
+                      Expanded(child: Text('Physique avec Forge2D')),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text('🔊', style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 10),
+                      Expanded(child: Text('Audio et effets sonores')),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text('💥', style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 10),
+                      Expanded(child: Text('Détection de collisions')),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text('✨', style: TextStyle(fontSize: 18)),
+                      SizedBox(width: 10),
+                      Expanded(child: Text('Système de particules')),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

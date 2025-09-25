@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:games_services/games_services.dart';
 
 class GamesServicesDemo extends StatefulWidget {
@@ -14,17 +14,16 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Games Services Demo'),
-        backgroundColor: Colors.amber,
-        foregroundColor: Colors.white,
+    return CupertinoPageScaffold(
+      navigationBar: const CupertinoNavigationBar(
+        middle: Text('Games Services Demo'),
+        backgroundColor: CupertinoColors.systemYellow,
       ),
-      body: Center(
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.emoji_events, size: 100, color: Colors.amber),
+            const Icon(CupertinoIcons.rosette, size: 100, color: CupertinoColors.systemYellow),
             const SizedBox(height: 20),
             const Text(
               'Games Services',
@@ -46,10 +45,10 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
               padding: const EdgeInsets.all(15),
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
-                color: isSignedIn ? Colors.green.withOpacity(0.1) : Colors.red.withOpacity(0.1),
+                color: isSignedIn ? CupertinoColors.systemGreen.withOpacity(0.1) : CupertinoColors.systemRed.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: isSignedIn ? Colors.green : Colors.red,
+                  color: isSignedIn ? CupertinoColors.systemGreen : CupertinoColors.systemRed,
                   width: 2,
                 ),
               ),
@@ -57,14 +56,14 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    isSignedIn ? Icons.check_circle : Icons.cancel,
-                    color: isSignedIn ? Colors.green : Colors.red,
+                    isSignedIn ? CupertinoIcons.checkmark_circle : CupertinoIcons.xmark_circle,
+                    color: isSignedIn ? CupertinoColors.systemGreen : CupertinoColors.systemRed,
                   ),
                   const SizedBox(width: 10),
                   Text(
                     isSignedIn ? 'Connecté: $playerName' : 'Non connecté',
                     style: TextStyle(
-                      color: isSignedIn ? Colors.green : Colors.red,
+                      color: isSignedIn ? CupertinoColors.systemGreen : CupertinoColors.systemRed,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -75,36 +74,39 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
             const SizedBox(height: 30),
             
             // Boutons d'action
-            ElevatedButton.icon(
+            CupertinoButton.filled(
               onPressed: _signIn,
-              icon: const Icon(Icons.login),
-              label: const Text('Se connecter'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(CupertinoIcons.person_circle, color: CupertinoColors.white),
+                  const SizedBox(width: 8),
+                  const Text('Se connecter'),
+                ],
               ),
             ),
             const SizedBox(height: 15),
-            ElevatedButton.icon(
+            CupertinoButton.filled(
               onPressed: isSignedIn ? _showAchievements : null,
-              icon: const Icon(Icons.emoji_events),
-              label: const Text('Succès'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(CupertinoIcons.rosette, color: CupertinoColors.white),
+                  const SizedBox(width: 8),
+                  const Text('Succès'),
+                ],
               ),
             ),
             const SizedBox(height: 15),
-            ElevatedButton.icon(
+            CupertinoButton.filled(
               onPressed: isSignedIn ? _showLeaderboards : null,
-              icon: const Icon(Icons.leaderboard),
-              label: const Text('Classements'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepOrange,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(CupertinoIcons.chart_bar, color: CupertinoColors.white),
+                  const SizedBox(width: 8),
+                  const Text('Classements'),
+                ],
               ),
             ),
           ],
@@ -124,10 +126,17 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
       });
       
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: Text(isSignedIn ? 'Succès' : 'Erreur'),
             content: Text(isSignedIn ? 'Connexion réussie!' : 'Échec de la connexion'),
-            backgroundColor: isSignedIn ? Colors.green : Colors.red,
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
           ),
         );
       }
@@ -138,10 +147,17 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
       });
       
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Erreur lors de la connexion'),
-            backgroundColor: Colors.red,
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: const Text('Erreur'),
+            content: const Text('Erreur lors de la connexion'),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
           ),
         );
       }
@@ -153,8 +169,18 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
       await GamesServices.showAchievements();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Erreur lors de l\'affichage des succès')),
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: const Text('Erreur'),
+            content: const Text('Erreur lors de l\'affichage des succès'),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
         );
       }
     }
@@ -165,8 +191,18 @@ class _GamesServicesDemoState extends State<GamesServicesDemo> {
       await GamesServices.showLeaderboards();
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Erreur lors de l\'affichage des classements')),
+        showCupertinoDialog(
+          context: context,
+          builder: (context) => CupertinoAlertDialog(
+            title: const Text('Erreur'),
+            content: const Text('Erreur lors de l\'affichage des classements'),
+            actions: [
+              CupertinoDialogAction(
+                child: const Text('OK'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
         );
       }
     }

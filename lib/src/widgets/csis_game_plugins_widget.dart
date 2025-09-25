@@ -50,7 +50,7 @@ class _CsisGamePluginsState extends State<CsisGamePlugins> {
       description: 'Framework pour jeux RPG 2D avec tilemap',
       icon: '🏰',
       color: Colors.green,
-      category: 'RPG',
+      category: 'Moteur',
       demoWidget: () => const BonfireDemo(),
     ),
     GamePlugin(
