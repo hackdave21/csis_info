@@ -27,3 +27,6 @@ export 'src/widgets/csis_games_widget.dart';
 export 'csis_game_plugins.dart';
 export 'src/models/game_plugin.dart';
 export 'src/models/csis_game_plugins_style.dart';
+
+// tout le contenu du package
+export 'src/widgets/csis_complete_demo.dart';

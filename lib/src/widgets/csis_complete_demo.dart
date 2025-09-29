@@ -116,14 +116,7 @@ class _CsisCompleteDemoState extends State<CsisCompleteDemo> {
       padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        gradient: LinearGradient(
-          colors: [
-            CupertinoTheme.of(context).primaryColor,
-            CupertinoTheme.of(context).primaryColor.withOpacity(0.8),
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
+        color: CupertinoTheme.of(context).primaryColor
       ),
       child: Column(
         children: [
